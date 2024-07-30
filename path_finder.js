@@ -1,15 +1,15 @@
 // cities data with coordinates
 const cities = {
     "Chennai": { "x": 470, "y": 510, "Bangalore": 350, "Hyderabad": 630, "Coimbatore": 500, "Salem": 340, "Tirupati": 135 },
-    "Bangalore": { "x": 10, "y": 300, "Chennai": 350, "Mysore": 150, "Hyderabad": 570 },
-    "Hyderabad": { "x": 500, "y": 100, "Chennai": 630, "Bangalore": 570, "Vijayawada": 270 },
-    "Coimbatore": { "x": 200, "y": 400, "Chennai": 500, "Madurai": 210 },
+    "Bangalore": { "x": 230, "y": 524, "Chennai": 350, "Mysore": 150, "Hyderabad": 570 },
+    "Hyderabad": { "x": 350, "y": 160, "Chennai": 630, "Bangalore": 570, "Vijayawada": 270 },
+    "Coimbatore": { "x": 220, "y": 660, "Chennai": 500, "Madurai": 210 },
     "Mysore": { "x": 130, "y": 520, "Bangalore": 150 },
-    "Vijayawada": { "x": 600, "y": 200, "Hyderabad": 270 },
-    "Madurai": { "x": 300, "y": 700, "Coimbatore": 210, "Salem": 230 },
-    "Visakhapatnam": { "x": 700, "y": 100, "Tirupati": 760 },
-    "Salem": { "x": 400, "y": 300, "Chennai": 340, "Madurai": 230 },
-    "Tirupati": { "x": 500, "y": 400, "Chennai": 135, "Visakhapatnam": 760 }
+    "Vijayawada": { "x": 530, "y": 280, "Hyderabad": 270 },
+    "Madurai": { "x": 300, "y": 730, "Coimbatore": 210, "Salem": 230 },
+    "Visakhapatnam": { "x": 625, "y": 238, "Tirupati": 760 },
+    "Salem": { "x": 300, "y": 630, "Chennai": 340, "Madurai": 230 },
+    "Tirupati": { "x": 365, "y": 460, "Chennai": 135, "Visakhapatnam": 760 }
 };
 
 // Find path function
