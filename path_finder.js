@@ -1,38 +1,16 @@
-// cities data
+// cities data with coordinates
 const cities = {
-    "Chennai": { "x": 1000, "y": 1000, "Bangalore": 350, "Hyderabad": 630, "Coimbatore": 500, "Salem": 340, "Tirupati": 135 },
-    "Bangalore": { "x":10, "y": 300, "Chennai": 350, "Mysore": 150, "Hyderabad": 570 },
+    "Chennai": { "x": 470, "y": 510, "Bangalore": 350, "Hyderabad": 630, "Coimbatore": 500, "Salem": 340, "Tirupati": 135 },
+    "Bangalore": { "x": 10, "y": 300, "Chennai": 350, "Mysore": 150, "Hyderabad": 570 },
     "Hyderabad": { "x": 500, "y": 100, "Chennai": 630, "Bangalore": 570, "Vijayawada": 270 },
     "Coimbatore": { "x": 200, "y": 400, "Chennai": 500, "Madurai": 210 },
-    "Mysore": { "x": 400, "y": 500, "Bangalore": 150 },
+    "Mysore": { "x": 130, "y": 520, "Bangalore": 150 },
     "Vijayawada": { "x": 600, "y": 200, "Hyderabad": 270 },
-    "Madurai": { "x": 300, "y": 600, "Coimbatore": 210, "Salem": 230 },
+    "Madurai": { "x": 300, "y": 700, "Coimbatore": 210, "Salem": 230 },
     "Visakhapatnam": { "x": 700, "y": 100, "Tirupati": 760 },
     "Salem": { "x": 400, "y": 300, "Chennai": 340, "Madurai": 230 },
     "Tirupati": { "x": 500, "y": 400, "Chennai": 135, "Visakhapatnam": 760 }
 };
-
-
-// DOM content loaded event
-document.addEventListener('DOMContentLoaded', () => {
-    const sourceSelect = document.getElementById('source');
-    const destinationSelect = document.getElementById('destination');
-
-    for (const city in cities) {
-        const option1 = document.createElement('option');
-        option1.value = city;
-        option1.textContent = city;
-        sourceSelect.appendChild(option1);
-
-        const option2 = document.createElement('option');
-        option2.value = city;
-        option2.textContent = city;
-        destinationSelect.appendChild(option2);
-    }
-
-    // Load the graph
-    createGraph(cities); // This function is defined in graph.js
-});
 
 // Find path function
 function findPath() {
@@ -123,5 +101,93 @@ class PriorityQueue {
 
     isEmpty() {
         return this.items.length === 0;
+    }
+}
+
+// Create the graph with manual node positioning
+function createGraph(cities, highlightedPath = []) {
+    const nodes = [];
+    const links = [];
+
+    // Build nodes and links
+    for (const city in cities) {
+        nodes.push({ id: city, x: cities[city].x, y: cities[city].y });
+        for (const neighbor in cities[city]) {
+            // Prevent duplicate links (each link is bidirectional)
+            if (city < neighbor) {
+                links.push({ source: city, target: neighbor, distance: cities[city][neighbor] });
+            }
+        }
+    }
+
+    // Filter the links to include only those that are part of the highlighted path
+    const filteredLinks = links.filter(link =>
+        highlightedPath.some(path => 
+            (path.source === link.source && path.target === link.target) ||
+            (path.source === link.target && path.target === link.source)
+        )
+    );
+
+    const width = 800;  // Width of the SVG
+    const height = 800;  // Height of the SVG
+    // Create the SVG container
+    const svg = d3.select("#graph")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // Add links (edges)
+    const link = svg.append("g")
+        .attr("class", "links")
+        .selectAll("line")
+        .data(filteredLinks)
+        .enter().append("line")
+        .attr("stroke-width", d => highlightedPath.some(p => (p.source === d.source && p.target === d.target) || (p.source === d.target && p.target === d.source)) ? 3 : 1)
+        .attr("stroke", d => highlightedPath.some(p => (p.source === d.source && p.target === d.target) || (p.source === d.target && p.target === d.source)) ? "red" : "#999");
+
+    // Add nodes
+    const node = svg.append("g")
+        .attr("class", "nodes")
+        .selectAll("circle")
+        .data(nodes)
+        .enter().append("circle")
+        .attr("r", 6)  // Node radius
+        .attr("fill", "#007bff")
+        .attr("cx", d => d.x)  // Set x coordinate
+        .attr("cy", d => d.y)  // Set y coordinate
+        .call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended));
+
+    // Add node labels
+    const text = svg.append("g")
+        .attr("class", "texts")
+        .selectAll("text")
+        .data(nodes)
+        .enter().append("text")
+        .attr("dy", -8)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "10px")
+        .attr("fill", "white")
+        .text(d => d.id)
+        .attr("x", d => d.x)
+        .attr("y", d => d.y);
+
+    function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+    }
+
+    function dragended(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
     }
 }
