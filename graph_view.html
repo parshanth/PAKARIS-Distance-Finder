@@ -20,18 +20,19 @@
             background-color: black;
         }
         .container {
-    width: 30%;
-    height:80%; /* Adjust height as needed */
-    margin: 100px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-image: url('/bg.jpg'); /* Ensure this path is correct */
-    background-size: cover; /* Ensures the image covers the entire container */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents repeating the image */
-    background-color: #fff; /* Optional: fallback color */
-} 
-
+            width: 50%; /* Adjust as needed */
+            height: 120%; /* Adjust as needed */
+            margin: 100px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-image: url('/bg.jpg'); /* Ensure this path is correct */
+            background-size: cover; /* Ensures the image covers the entire container */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents repeating the image */
+            background-color: #fff; /* Optional: fallback color */
+            float: left;
+        }
+    
 
         #graph {
             width: 100%;
@@ -41,28 +42,28 @@
 </head>
 <body>
     <div class="container">
-    <div id="graph"></div>
-    <script>
-        // Retrieve URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const source = urlParams.get('source');
-        const destination = urlParams.get('destination');
+        <div id="graph"></div>
+        <script>
+            // Retrieve URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const source = urlParams.get('source');
+            const destination = urlParams.get('destination');
 
-        // Find the shortest path
-        const path = dijkstra(source, destination);
-        const highlightedPath = [];
+            // Find the shortest path
+            const path = dijkstra(source, destination);
+            const highlightedPath = [];
 
-        // Create the path segments for highlighting
-        for (let i = 0; i < path.length - 1; i++) {
-            highlightedPath.push({
-                source: path[i],
-                target: path[i + 1]
-            });
-        }
+            // Create the path segments for highlighting
+            for (let i = 0; i < path.length - 1; i++) {
+                highlightedPath.push({
+                    source: path[i],
+                    target: path[i + 1]
+                });
+            }
 
-        // Create the graph with the cities data and the highlighted path
-        createGraph(cities, highlightedPath);
-    </script>
+            // Create the graph with the cities data and the highlighted path
+            createGraph(cities, highlightedPath);
+        </script>
     </div>
 </body>
 </html>

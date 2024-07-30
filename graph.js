@@ -2,80 +2,68 @@ function createGraph(cities, highlightedPath = []) {
     const nodes = [];
     const links = [];
 
+    // Build nodes and links
     for (const city in cities) {
-        nodes.push({ id: city });
+        nodes.push({ id: city, x: cities[city].x, y: cities[city].y });
         for (const neighbor in cities[city]) {
-            links.push({ source: city, target: neighbor, distance: cities[city][neighbor] });
+            if (city < neighbor) {
+                links.push({ source: city, target: neighbor, distance: cities[city][neighbor] });
+            }
         }
     }
 
-    // Filter the links to include only those that are part of the highlighted path
-    const filteredLinks = links.filter(link =>
-        highlightedPath.some(path => 
-            (path.source === link.source && path.target === link.target) ||
-            (path.source === link.target && path.target === link.source)
-        )
-    );
+    const width = 1000;  // Width of the SVG
+    const height = 900;  // Height of the SVG
 
-    const width =1000;  // Adjusted width for a smaller graph
-    const height = 900; // Adjusted height for a smaller graph
-
+    // Create the SVG container
     const svg = d3.select("#graph")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
-    const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(filteredLinks).id(d => d.id).distance(d => d.distance / 2))  // Adjust link distance
-        .force("charge", d3.forceManyBody().strength(-150))  // Adjusted strength for less spread
-        .force("center", d3.forceCenter(width / 2, height / 2));
-
+    // Add links (edges)
     const link = svg.append("g")
         .attr("class", "links")
         .selectAll("line")
-        .data(filteredLinks)
+        .data(links)
         .enter().append("line")
-        .attr("stroke-width", d => highlightedPath.some(p => (p.source === d.source && p.target === d.target) || (p.source === d.target && p.target === d.source)) ? 3 : 1)  // Adjusted link thickness
-        .attr("stroke", d => highlightedPath.some(p => (p.source === d.source && p.target === d.target) || (p.source === d.target && p.target === d.source)) ? "red" : "#999");
+        .attr("stroke-width", d => highlightedPath.some(p => 
+            (p.source === d.source && p.target === d.target) ||
+            (p.source === d.target && p.target === d.source)
+        ) ? 3 : 1)
+        .attr("stroke", d => highlightedPath.some(p => 
+            (p.source === d.source && p.target === d.target) ||
+            (p.source === d.target && p.target === d.source)
+        ) ? "red" : "#999");
 
+    // Add nodes
     const node = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
         .data(nodes)
         .enter().append("circle")
-        .attr("r", 6)  // Adjusted radius
+        .attr("r", 6)  // Node radius
         .attr("fill", "#007bff")
+        .attr("cx", d => d.x)  // Set x coordinate
+        .attr("cy", d => d.y)  // Set y coordinate
         .call(d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)
             .on("end", dragended));
 
+    // Add node labels
     const text = svg.append("g")
         .attr("class", "texts")
         .selectAll("text")
         .data(nodes)
         .enter().append("text")
-        .attr("dy", -8)  // Adjusted for smaller nodes
+        .attr("dy", -8)
         .attr("text-anchor", "middle")
-        .attr("font-size", "10px")  // Adjusted font size
-        .attr("fill", "white")  // Set text color to white
-        .text(d => d.id);
-
-    simulation.on("tick", () => {
-        link
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-
-        node
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y);
-
-        text
-            .attr("x", d => d.x)
-            .attr("y", d => d.y);
-    });
+        .attr("font-size", "10px")
+        .attr("fill", "white")
+        .text(d => d.id)
+        .attr("x", d => d.x)
+        .attr("y", d => d.y);
 
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
