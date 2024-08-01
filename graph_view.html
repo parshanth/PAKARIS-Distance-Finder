@@ -8,52 +8,90 @@
     <script src="graph.js"></script>
     <script src="path_finder.js"></script>
     <style>
-        /* Inbuilt CSS for styling the graph container */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
             height: 100vh;
-            background-color: black;
+            background-image: url('./busstand2.jpg');
+
+            background-color: #d1d1d1;
         }
         .container {
-            width: 50%; /* Adjust as needed */
-            height: 120%; /* Adjust as needed */
-            margin: 100px;
+    width: 60%;
+    height: 160%;
+    padding: 18px;
+    border: 5px solid rgb(44, 0, 115);
+    border-radius: 10px;
+    background-image: url('/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column; /* Ensure the container content stacks vertically */
+    align-items: flex-start; /* Align items to the start (left) */
+    position: relative;
+    margin-bottom: 15px; /* Add a little gap at the bottom */
+    margin-left: 10px; /* Move the container to the left side */
+    margin-right: auto; /* Ensure it stays to the left */
+}
+
+
+.distance {
+            width: 27%;
+            height: 69%;
             padding: 20px;
-            border: 1px solid #ccc;
-            background-image: url('/bg.jpg'); /* Ensure this path is correct */
-            background-size: cover; /* Ensures the image covers the entire container */
-            background-position: center; /* Centers the image */
-            background-repeat: no-repeat; /* Prevents repeating the image */
-            background-color: #fff; /* Optional: fallback color */
-            float: left;
+            border: 5px solid rgb(97, 117, 0);
+            border-radius: 10px;
+            background-color: #ededef;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: absolute;
+            top: 270px; /* Adjust as necessary */
+            right: 40px; /* Adjust as necessary */
         }
-    
 
         #graph {
-            width: 100%;
-            height: 100%;
+            width: 460%;
+            height: 400%;
         }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid black;
+            background-color: white;
+            width: 100%;
+        }
+        h1 {
+    position: relative;
+    top: 170px;
+    left: -130px;
+    right: 60px;
+    font-weight: bold;
+    color: #1f0202; /* Dark purple color that contrasts well with white */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ensure a nice, clean font */
+}
+
     </style>
 </head>
 <body>
     <div class="container">
         <div id="graph"></div>
         <script>
-            // Retrieve URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const source = urlParams.get('source');
             const destination = urlParams.get('destination');
-
-            // Find the shortest path
-            const path = dijkstra(source, destination);
+            const res=dijkstra(source,destination);
+            const path = res.minPath;
             const highlightedPath = [];
 
-            // Create the path segments for highlighting
             for (let i = 0; i < path.length - 1; i++) {
                 highlightedPath.push({
                     source: path[i],
@@ -61,9 +99,13 @@
                 });
             }
 
-            // Create the graph with the cities data and the highlighted path
             createGraph(cities, highlightedPath);
+            console.log(res.minCost);
         </script>
+    </div>
+    <h1>Minimum distance</h1>
+    <div class="distance">
+
     </div>
 </body>
 </html>

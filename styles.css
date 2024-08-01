@@ -1,5 +1,4 @@
-/* General Styles */
-body {
+body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -16,13 +15,15 @@ body {
 /* Container Styles */
 .container {
     width: 400px;
+    height: 250px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
+    background: transparent  ;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(0.5px);
+    top:40px;
     
 }
 
@@ -33,7 +34,10 @@ body {
 
 /* Heading Styles */
 h1 {
-    color: #333;
+    color: #ffffff;
+    background-color: #003f7f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: transparent;
     margin-bottom: 20px;
     font-size: 2.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -48,8 +52,9 @@ h1 {
 label {
     display: block;
     margin-bottom: 5px;
-    color: #555;
+    background-color: yellow;
     font-weight: bold;
+    color:brown;
 }
 
 /* Select Styles */
@@ -84,74 +89,4 @@ button {
 button:hover {
     background: linear-gradient(135deg, #0056b3, #003f7f);
     transform: scale(1.05);
-}
-
-/* Result Box Styles */
-.result-box {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #e9ecef;
-    min-height: 50px;
-    font-size: 1.1em;
-    color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Graph Styles */
-#graph {
-    margin-top: 30px;
-}
-
-.links line {
-    stroke: #999;
-    stroke-opacity: 0.6;
-}
-
-.nodes circle {
-    stroke: #fff;
-    stroke-width: 1.5px;
-}
-
-.nodes text {
-    font-size: 12px;
-    fill: #333;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        max-width: 90%;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 2em;
-    }
-
-    button {
-        font-size: 1em;
-    }
-
-    .result-box {
-        font-size: 1em;
-    }
-}
-/* styles.css */
-/* .container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-} */
-
-.result-box {
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-#graph {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ccc; /* Optional border for better visualization */
 }
