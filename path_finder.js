@@ -1,5 +1,5 @@
     const cities = {
-        "Ariyalur": { "x": 660, "y": 510, "Perambalur": 33, "Tiruchirappalli": 61, "Thanjavur": 54, "Cuddalore": 112 },
+        "Ariyalur": { "x": 660, "y": 510, "Perambalur": 33, "Tiruchirappalli": 61, "Thanjavur": 54, "Cuddalore": 112,Mayiladuthurai:87 },
         "Chengalpattu": { "x": 820, "y": 200, "Kanchipuram": 23, "Tiruvallur": 58, "Chennai": 56, "Villupuram": 92,Cuddalore:128 },
         "Chennai": { "x": 865, "y": 117, "Tiruvallur": 42, "Kanchipuram": 75, "Chengalpattu": 56, "Ranipet": 115 },
         "Coimbatore": { "x": 170, "y": 550, "Tiruppur": 55, "Nilgiris": 83, "Erode": 97},
@@ -13,7 +13,7 @@
         "Karur": { "x": 370, "y": 600, "Namakkal": 36, "Tiruchirappalli": 81, "Dindigul": 77, "Erode": 66,"Tiruppur":88 },
         "Krishnagiri": { "x": 370, "y": 260, "Dharmapuri": 46, "Tirupattur": 56, "Vellore": 118 },
         "Madurai": { "x": 320, "y": 750, "Dindigul": 66, "Virudhunagar": 53, "Sivagangai": 48, "Theni": 77, "Tiruchirappalli": 100 },
-        "Mayiladuthurai": { "x": 750, "y": 410, "Nagapattinam": 51, "Thanjavur": 60, "Cuddalore": 85 },
+        "Mayiladuthurai": { "x": 750, "y": 410, Ariyalur:87,"Nagapattinam": 51, "Thanjavur": 60, "Cuddalore": 85 },
         "Nagapattinam": { "x": 710, "y": 450, "Mayiladuthurai": 51, "Thanjavur": 80, "Tiruvarur": 29, "Cuddalore": 85 },
         "Namakkal": { "x": 380, "y": 460, "Salem": 57, "Karur": 36, "Tiruchirappalli": 85, "Erode": 63,Kallakurichi:129 },
         "Nilgiris": { "x": 170, "y": 450, "Coimbatore": 83, "Erode": 97 },
