@@ -15,15 +15,16 @@ body{
 /* Container Styles */
 .container {
     width: 400px;
-    height: 250px;
+    height: 450px;
     padding: 20px;
-    background: transparent  ;
+    background: rgba(0, 0, 0, 0.4)  ;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
     backdrop-filter: blur(0.5px);
-    top:40px;
+    top:30px;
+    border-color: #003f7f;
     
 }
 
@@ -35,34 +36,48 @@ body{
 /* Heading Styles */
 h1 {
     color: #ffffff;
-    background-color: #003f7f;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: transparent;
+    background: linear-gradient(135deg, rgba(87, 208, 255, 0.7), rgba(0, 0, 67, 0.895));
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 40px;
     margin-bottom: 20px;
     font-size: 2.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 10px; /* Added padding for better readability */
 }
+
+
 
 /* Form Group Styles */
 .form-group {
     margin-bottom: 15px;
     text-align: left;
 }
-
 label {
-    display: block;
-    margin-bottom: 5px;
-    background-color: yellow;
-    font-weight: bold;
-    color:brown;
+    display: inline-block;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(94, 255, 62, 0.856), rgba(4, 36, 13, 0.895));
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 40px;
+    margin-bottom: 20px;
+    margin-right: 90px; /* Adjust this for horizontal spacing */
+    margin-left: auto; /* Center label horizontally if container is wider */
+    margin-right: auto; /* Center label horizontally if container is wider */
+    font-size: 1.3em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    text-align: center;
+    width: 160px;
+    height: 30px;
 }
+
+
 
 /* Select Styles */
 select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 9px;
     font-size: 1em;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
@@ -75,12 +90,12 @@ select:focus {
 
 /* Button Styles */
 button {
-    width: 100%;
+    width: 30%;
     padding: 12px;
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 1.2em;
     transition: background 0.3s, transform 0.3s;

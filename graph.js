@@ -18,7 +18,7 @@ function createGraph(cities, highlightedPath = []) {
     
 
     const width = 1000;
-    const height = 4000;
+    const height = 1200;
 
     const svg = d3.select("#graph")
         .append("svg")
