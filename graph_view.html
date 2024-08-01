@@ -16,52 +16,46 @@
             justify-content: space-between;
             align-items: flex-start;
             height: 100vh;
-            background-image: url('./busstand2.jpg');
-
-            background-color: #d1d1d1;
+            background: linear-gradient(to right, #e72b86, #e9f0e3); 
         }
         .container {
-    width: 60%;
-    height: 160%;
-    padding: 18px;
-    border: 5px solid rgb(44, 0, 115);
-    border-radius: 10px;
-    background-image: url('/bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #fff;
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column; /* Ensure the container content stacks vertically */
-    align-items: flex-start; /* Align items to the start (left) */
-    position: relative;
-    margin-bottom: 15px; /* Add a little gap at the bottom */
-    margin-left: 10px; /* Move the container to the left side */
-    margin-right: auto; /* Ensure it stays to the left */
-}
-
-
-.distance {
+            width: 60%;
+            height: 160%;
+            padding: 18px;
+            border: 5px solid rgb(44, 0, 115);
+            border-radius: 10px;
+            background-image: url('/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fff;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            margin-bottom: 15px;
+            margin-left: 10px;
+            margin-right: auto;
+        }
+        .distance {
             width: 27%;
-            height: 69%;
+            height: 100%;
             padding: 20px;
             border: 5px solid rgb(1, 48, 47);
             border-radius: 10px;
-            background: linear-gradient(135deg, rgba(233, 235, 232, 0.856), rgba(240, 255, 244, 0.895));
+            background: rgba(255, 255, 255, 0.5);
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             position: absolute;
-            top: 270px; /* Adjust as necessary */
-            right: 40px; /* Adjust as necessary */
+            top: 270px;
+            right: 40px;
         }
-
         #graph {
             width: 100%;
             height: 400%;
         }
-
         #result {
             margin-top: 20px;
             padding: 10px;
@@ -70,15 +64,15 @@
             width: 100%;
         }
         h1 {
-    position: relative;
-    top: 170px;
-    left: -130px;
-    right: 60px;
-    font-weight: bold;
-    color: #1f0202; /* Dark purple color that contrasts well with white */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ensure a nice, clean font */
-}
-
+            position: relative;
+            top: 15px;
+            left: -115px;
+            right: 60px;
+            font-weight: bold;
+            font-size: 35px;
+            color: #1f0202;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +82,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const source = urlParams.get('source');
             const destination = urlParams.get('destination');
-            const res=dijkstra(source,destination);
+            const res = dijkstra(source, destination);
             const path = res.minPath;
             const highlightedPath = [];
 
@@ -105,7 +99,108 @@
     </div>
     <h1>Minimum distance</h1>
     <div class="distance">
-        <h1 class="ulla"></h1>
+        <style>
+            .result-box, .cost-box {
+                border: 2px solid black;
+                padding: 10px;
+                margin-bottom: 20px;
+                background-color: #f9f9f9;
+            }
+            .result-box h2, .cost-box h2 {
+                margin-top: 0;
+                font-size: 1.2em;
+            }
+            .path-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .path-list li {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                margin-top: 10px;
+                margin-bottom: 40px;
+                font-size: 1.6em;
+                position: relative;
+            }
+            .path-list li::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 1.5em;
+                color: transparent;
+                height: 20px;
+            }
+            .path-list li::after {
+                top: 60px;
+                content: '↓';
+                position: absolute;
+                bottom: -25px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 1.8em;
+                color: #000;
+            }
+            .path-list li:last-child::after {
+                content: '';
+            }
+            .distance {
+                width: 27%;
+                height: auto;
+                padding: 20px;
+                border: 5px solid rgb(1, 48, 47);
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.5);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 100px;
+                right: 40px;
+            }
+            #min-cost {
+                margin-top: 20px;
+                font-size: 1.6em;
+                font-weight: bold;
+                font-style: italic;
+                background: linear-gradient(135deg, rgba(7, 17, 0, 0.1), rgba(255, 255, 255, 0.1));
+                padding: 10px;
+                border-radius: 7px;
+                color: #000000;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                max-width: 90%;
+            }
+        </style>
+        <ul id="path-list" class="path-list"></ul>
+        <div id="min-cost"></div>
+        <script>
+            const pathData = JSON.parse(localStorage.getItem('formattedPathData'));
+            console.log("see here", pathData);
+    
+            const minCost = localStorage.getItem('minicost');
+    
+            const pathList = document.getElementById('path-list');
+            pathData.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = item.city;
+                if (index < pathData.length - 1) {
+                    const distance = document.createElement('div');
+                    distance.textContent = `${item.distance} km`;
+                    li.appendChild(distance);
+                }
+                pathList.appendChild(li);
+            });
+    
+            const minCostElement = document.getElementById('min-cost');
+            minCostElement.textContent = `Total Distance is : ${minCost} km`;
+        </script>
     </div>
-</body>
+</body>    
 </html>

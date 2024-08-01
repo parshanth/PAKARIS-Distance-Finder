@@ -22,7 +22,6 @@
     </div>
     <script src="path_finder.js"></script>
     <script>
-        // Populate dropdowns with cities
         document.addEventListener('DOMContentLoaded', () => {
             const sourceSelect = document.getElementById('source');
             const destinationSelect = document.getElementById('destination');
@@ -40,17 +39,16 @@
             }
         });
 
-        // Handle button click
         document.getElementById('submit-btn').addEventListener('click', () => {
             const source = document.getElementById('source').value;
             const destination = document.getElementById('destination').value;
-
+            localStorage.setItem('source', source);
+            localStorage.setItem('destination', destination);
             if (source === destination) {
                 alert("Source and destination cannot be the same.");
                 return;
             }
 
-            // Redirect to the graph view with parameters
             const url = `graph_view.html?source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}`;
             window.location.href = url;
         });

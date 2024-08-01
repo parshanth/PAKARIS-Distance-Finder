@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Map with D3.js</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        #map-container {
+            flex: 1;
+            border: 20px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        #results {
+            flex: 1;
+            padding: 20px;
+            border: 20px solid black;
+            overflow-y: auto;
+            position: relative;
+            animation: borderAnimation 4s infinite;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        @keyframes borderAnimation {
+            0% { border-color: red; }
+            25% { border-color: blue; }
+            50% { border-color: green; }
+            75% { border-color: yellow; }
+            100% { border-color: red; }
+        }
+        .result-box, .cost-box {
+            border: 2px solid black;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .result-box h2, .cost-box h2 {
+            margin-top: 0;
+        }
+        .path-list {
+            list-style: none;
+            padding: 0;
+        }
+        .path-list li {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .path-list li::after {
+            content: '↓';
+            margin: 10px 0;
+        }
+        .path-list li:last-child::after {
+            content: '';
+        }
+    </style>
+</head>
+<body>
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+    <div id="results">
+        <div class="result-box">
+            <h2>Path</h2>
+            <ul class="path-list" id="path-list"></ul>
+        </div>
+        <div class="cost-box">
+            <h2>Minimum Cost</h2>
+            <p id="min-cost">0 km</p>
+        </div>
+    </div>
+   
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Example path data with distances
+
+        const pathData = JSON.parse(localStorage.getItem('formattedPathData'));
+        console.log("see here",pathData);// [
+        //     { city: 'Ariyalur', distance: 35 },
+        //     { city: 'Perambalur', distance: 45 },
+        //     { city: 'Thanjavur', distance: 60 },
+        //     { city: 'Madurai', distance: 0 }
+        // ];
+        console.log(localStorage.getItem('minicost'));
+        const minCost = localStorage.getItem('minicost'); // Example minimum cost in km
+        
+        // Display path in the results box
+        const pathList = document.getElementById('path-list');
+        pathData.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.textContent = item.city;
+            if (index < pathData.length - 1) {
+                const distance = document.createElement('div');
+                distance.textContent = ${item.distance} km;
+                li.appendChild(distance);
+            }
+            pathList.appendChild(li);
+        });
+
+        // Display minimum cost
+        const minCostElement = document.getElementById('min-cost');
+        minCostElement.textContent = ${minCost} km;
+    </script>
+</body>
+</html>
