@@ -1,4 +1,4 @@
-body{
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -12,20 +12,18 @@ body{
     background-repeat: no-repeat;
 }
 
-/* Container Styles */
 .container {
     width: 400px;
     height: 450px;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.4)  ;
+    background: rgba(0, 0, 0, 0.4);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
     backdrop-filter: blur(0.5px);
-    top:30px;
+    top: 30px;
     border-color: #003f7f;
-    
 }
 
 @keyframes fadeIn {
@@ -33,7 +31,6 @@ body{
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Heading Styles */
 h1 {
     color: #ffffff;
     background: linear-gradient(135deg, rgba(87, 208, 255, 0.7), rgba(0, 0, 67, 0.895));
@@ -42,16 +39,14 @@ h1 {
     margin-bottom: 20px;
     font-size: 2.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    padding: 10px; /* Added padding for better readability */
+    padding: 10px;
 }
 
-
-
-/* Form Group Styles */
 .form-group {
     margin-bottom: 15px;
     text-align: left;
 }
+
 label {
     display: inline-block;
     color: #ffffff;
@@ -59,9 +54,9 @@ label {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 40px;
     margin-bottom: 20px;
-    margin-right: 90px; /* Adjust this for horizontal spacing */
-    margin-left: auto; /* Center label horizontally if container is wider */
-    margin-right: auto; /* Center label horizontally if container is wider */
+    margin-right: 90px;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 1.3em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     padding: 4px;
@@ -70,9 +65,6 @@ label {
     height: 30px;
 }
 
-
-
-/* Select Styles */
 select {
     width: 100%;
     padding: 10px;
@@ -88,7 +80,6 @@ select:focus {
     outline: none;
 }
 
-/* Button Styles */
 button {
     width: 30%;
     padding: 12px;

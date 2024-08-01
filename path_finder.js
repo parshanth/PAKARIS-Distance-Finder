@@ -44,7 +44,7 @@
         const predecessors = {};
         const priorityQueue = new MinHeap();
 
-        // Initialize distances and priority queue
+        
         for (let city in cities) {
             distances[city] = Infinity;
             predecessors[city] = null;
@@ -57,7 +57,7 @@
             const { node: currentCity } = priorityQueue.extractMin();
 
             if (currentCity === destination) {
-                break; // We found the shortest path to the destination
+                break; 
             }
 
             for (let neighbor in cities[currentCity]) {
@@ -71,7 +71,6 @@
             }
         }
 
-        // Reconstruct the shortest path
         const path = [];
         let step = destination;
         while (step !== null) {
@@ -82,7 +81,6 @@
         return { minCost: distances[destination], minPath: path };
     }
 
-    // MinHeap class for priority queue operations
     class MinHeap {
         constructor() {
             this.heap = [];
