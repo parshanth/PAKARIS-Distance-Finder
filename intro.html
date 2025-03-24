@@ -25,14 +25,16 @@
         .title {
             font-size: 3em;
             margin-bottom: 20px;
-            margin-top: -50px; /* Move upward */
-            animation: slideDown 1.5s ease-out;
+            margin-top: -50px;
+            animation: slideDown 1.5s ease-out, shine 2s linear infinite;
             background: linear-gradient(90deg, violet, rgb(0, 157, 255), rgb(255, 85, 122), rgb(65, 172, 65), yellow, orange, rgb(254, 102, 102));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
             background-size: 200% auto;
-            animation: shine 2s linear infinite;
         }
+
 
         .subtitle {
             font-size: 3.2em;
@@ -41,12 +43,14 @@
             animation: fadeIn 2s ease-in;
             background-color: aliceblue;
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .subtitle.dijkstra {
             background: linear-gradient(90deg, violet, rgb(0, 157, 255), rgb(255, 85, 122), green, yellow, orange, rgb(254, 102, 102));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: shine 2s linear infinite;
