@@ -8,78 +8,90 @@
     <script src="graph.js"></script>
     <script src="path_finder.js"></script>
     <style>
+        /* Animated Background */
+        @keyframes backgroundGlow {
+            0% { background: #1b0033; }
+            50% { background: #003366; }
+            100% { background: #1b0033; }
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #820000, #7860e4);
+            animation: backgroundGlow 5s infinite alternate;
+            overflow-x: hidden;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            padding: 20px;
         }
 
         .container {
-            width: 60%;
-            height: 160%;
-            padding: 18px;
-            border: 5px solid rgb(44, 0, 115);
-            border-radius: 10px;
+            width: 900px; 
+            height: 1220px;
+            padding: 24px;
+            border: 5px solid #00e5ff;
+            box-shadow: 0 0 15px #00e5ff;
             background-image: url('/bg.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-color: #fff;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            margin-left: 10px;
-            margin-right: auto;
+            background-color: rgba(255, 255, 255, 0.9);
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             position: relative;
-        }
-
-        .distance {
-            width: 27%;
-            height: auto;
-            padding: 20px;
-            border: 5px solid black;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            top: 100px;
-            right: 40px;
-        }
-
-        #graph {
-            width: 100%;
-            height: 400%;
+            flex-shrink: 0;
         }
 
         h1 {
-            position: relative;
-            top: 10px;
-            left: -95px;
-            right: 75px;
-            font-size: 40px;
-            color: #fdfffc;
+            text-align: center;
+            font-size: 30px;
+            color: #000000;
+            text-decoration: underline;
+            text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff9900;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 20px;
         }
 
-        .result-box, .cost-box {
-            border: 2px solid black;
-            padding: 10px;
-            margin-bottom: 20px;
-            background-color: #f9f9f9;
+        .distance {
+            width: 300px; 
+            padding: 20px;
+            border: 5px solid #ffcc00;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: static; 
+            margin-top: 20px;
+            margin-left: 30px;
         }
 
-        .result-box h2, .cost-box h2 {
-            margin-top: 0;
-            font-size: 1.2em;
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .distance {
+                width: 90%;
+                margin: 20px auto;
+            }
+        }
+
+        #graph {
+            width: 100px;
+            height: 400px;
         }
 
         .path-list {
@@ -99,19 +111,9 @@
             margin-bottom: 40px;
             font-size: 1.6em;
             font-weight: bold;
-            color: #2d0000;
+            color: #0c0501;
+            text-shadow: 0 0 10px #ff3300;
             position: relative;
-        }
-
-        .path-list li::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5em;
-            color: transparent;
-            height: 20px;
         }
 
         .path-list li::after {
@@ -122,7 +124,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 1.8em;
-            color: #560000;
+            color: #ff3300;
         }
 
         .path-list li:last-child::after {
@@ -137,64 +139,80 @@
             background: linear-gradient(135deg, rgba(7, 17, 0, 0.1), rgba(255, 255, 255, 0.1));
             padding: 10px;
             border-radius: 7px;
-            color: #910000;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #1d010a;
+            text-shadow: 0 0 10px #ff004c;
+            box-shadow: 0 4px 8px rgba(0, 255, 255, 0.5);
             text-align: center;
             max-width: 90%;
+        }
+        .tam{
+            font-size: 50px;
+            color: #ffffff;
+            position: relative;
+            right: 400px;
+            top: 20px;
+            text-shadow: 0 0 10px #000a05, 0 0 20px #120b00;
+
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="graph"></div>
-        <script>
-            const urlParams = new URLSearchParams(window.location.search);
-            const source = urlParams.get('source');
-            const destination = urlParams.get('destination');
-            const res = dijkstra(source, destination);
-            const path = res.minPath;
-            const highlightedPath = [];
+    <h1 class="tam">Tamil Nadu Map</h1>
+    <div class="content">
+        <div class="container">
+            <h1>
+            <div id="graph">
+                <script>
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const source = urlParams.get('source');
+                    const destination = urlParams.get('destination');
+                    const res = dijkstra(source, destination);
+                    const path = res.minPath;
+                    const highlightedPath = [];
 
-            for (let i = 0; i < path.length - 1; i++) {
-                highlightedPath.push({
-                    source: path[i],
-                    target: path[i + 1]
+                    for (let i = 0; i < path.length - 1; i++) {
+                        highlightedPath.push({
+                            source: path[i],
+                            target: path[i + 1]
+                        });
+                    }
+
+                    createGraph(cities, highlightedPath);
+                    console.log(res.minCost);
+                </script>
+            </div>
+        </div>
+
+        <div class="distance">
+            <h1>Minimum Distance</h1>
+
+            <ul id="path-list" class="path-list"></ul>
+            <div id="min-cost"></div>
+            <script>
+                const pathData = JSON.parse(localStorage.getItem('formattedPathData'));
+                console.log("see here", pathData);
+
+                const minCost = localStorage.getItem('minicost');
+
+                const pathList = document.getElementById('path-list');
+                pathData.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = item.city;
+
+                    if (index < pathData.length - 1) {
+                        const distance = document.createElement('div');
+                        distance.textContent = `${item.distance} km`;
+                        li.appendChild(distance);
+                    }
+
+                    pathList.appendChild(li);
                 });
-            }
 
-            createGraph(cities, highlightedPath);
-            console.log(res.minCost);
-        </script>
+                const minCostElement = document.getElementById('min-cost');
+                minCostElement.textContent = `Total Distance is : ${minCost} km`;
+            </script>
+        </div>
     </div>
 
-    <h1>Minimum Distance</h1>
-
-    <div class="distance">
-        <ul id="path-list" class="path-list"></ul>
-        <div id="min-cost"></div>
-        <script>
-            const pathData = JSON.parse(localStorage.getItem('formattedPathData'));
-            console.log("see here", pathData);
-
-            const minCost = localStorage.getItem('minicost');
-
-            const pathList = document.getElementById('path-list');
-            pathData.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.textContent = item.city;
-
-                if (index < pathData.length - 1) {
-                    const distance = document.createElement('div');
-                    distance.textContent = `${item.distance} km`;
-                    li.appendChild(distance);
-                }
-
-                pathList.appendChild(li);
-            });
-
-            const minCostElement = document.getElementById('min-cost');
-            minCostElement.textContent = `Total Distance is : ${minCost} km`;
-        </script>
-    </div>
 </body>
 </html>
